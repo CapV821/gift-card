@@ -22,11 +22,17 @@
       font-size: 3em;
       margin-bottom: 20px;
       color: #6a1b9a;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeDown 1s forwards 0.3s;
     }
 
     header p {
       font-size: 1.2em;
       color: #444;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeDown 1s forwards 0.6s;
     }
 
     .buttons {
@@ -35,6 +41,16 @@
       flex-wrap: wrap;
       gap: 20px;
       margin-top: 40px;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeDown 1s forwards 0.9s;
+    }
+
+    @keyframes fadeDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .btn {
@@ -74,6 +90,9 @@
       text-align: center;
       margin-bottom: 20px;
       color: #6a1b9a;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeDown 0.8s forwards;
     }
 
     .gallery {
@@ -87,6 +106,46 @@
       width: 200px;
       border-radius: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s forwards;
+      animation-delay: 0.2s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* музыка */
+    .music-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .music-list li {
+      margin: 15px 0;
+      padding: 15px;
+      background: #f3f0fa;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: fadeRight 0.6s forwards;
+    }
+
+    @keyframes fadeRight {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    audio {
+      margin-top: 10px;
+      width: 100%;
     }
 
     /* сердечки */
@@ -121,10 +180,11 @@
 
     @keyframes fall {
       to {
-        transform: translateY(100vh) rotate(45deg);
+        transform: translateY(100vh) rotate(45deg) scale(0.5);
         opacity: 0;
       }
     }
+
   </style>
 </head>
 <body>
@@ -135,33 +195,53 @@
     <div class="buttons">
       <button class="btn" onclick="showSection('playlist')">🌸 Плейлист</button>
       <button class="btn" onclick="showSection('letter')">✉️ Послание</button>
-      <button class="btn" onclick="showSection('gallery')">📸 Воспоминания</button>
+      <button class="btn" onclick="showSection('gallery')">📸 Для тебя</button>
       <button class="btn" onclick="makeHearts()">💜 Сюрприз</button>
     </div>
   </header>
 
   <section id="playlist">
-    <h2>🌸 Мой плейлист для тебя</h2>
-    <p style="text-align:center">
-      <a href="https://open.spotify.com/" target="_blank" class="btn">Открыть плейлист</a>
-    </p>
+    <h2>🌸 Эти песни напоминают мне о тебе</h2>
+    <ul class="music-list">
+      <li style="animation-delay:0.2s">
+        🎵 Lana Del Rey - Born to die  
+        <audio controls>
+          <source src="music/track1.mp3" type="audio/mpeg">
+        </audio>
+      </li>
+      <li style="animation-delay:0.4s">
+        🎵 The Neighbourhood - Cry Baby  
+        <audio controls>
+          <source src="music/track2.mp3" type="audio/mpeg">
+        </audio>
+      </li>
+      <li style="animation-delay:0.6s">
+        🎵 Cigarettes After Sex - Nothing's Gonna Hurt You Baby  
+        <audio controls>
+          <source src="music/track3.mp3" type="audio/mpeg">
+        </audio>
+      </li>
+    </ul>
   </section>
 
   <section id="letter">
     <h2>✉️ Послание</h2>
     <p>
-      Ты — самое прекрасное, что есть в моей жизни.  
-      Этот сайт — лишь маленький знак того, что в моём сердце всегда есть место только для тебя.  
-      Спасибо, что ты есть 💜
+      Сегодня на календаре третье октября — дата совершенно особенная для нас с тобой. 
+Четыре месяца. Ровно четыре месяца назад мы с тобой впервые заговорили и наши души совприкоснулись. Время летит, не правда ли? Это были четыре месяца, в которых было всё: радость, ожидание, небольшие испытания, непредвиденные штормы и очень значимые для нас обеих моменты. И среди всего этого есть главное — даже спустя столько времени мы выбираем оставаться рядом. Мы выбираем друг друга, несмотря на то, что бывает сложно, несмотря на сомнения, расстояние и страхи. И я верю, что всё это делает нас только сильнее.
+Я люблю тебя. Глубоко, тихо и вместе с тем ярко, подобно фейерверкам. Рядом с тобой всё обретает другой вкус: дни становятся теплее, слова — честнее, а мысли — смелее.
+Ты — мой уют, моя радость, моё место силы и вдохновения. Ты та, с кем хочется делиться каждой мелочью дня, смешными историями, страхами, мечтами и надеждами. Ты та, рядом с которой я могу быть собой — со своими слабостями, неловкими словами, нежностью, которую я раньше не смела показывать. И ты — та, ради которой я хочу становиться лучше.
+С каждым днём я яснее понимаю: моё сердце счастливо, что встретило твоё. И, может быть, это и есть самое главное — что мы есть друг у друга, что мы выбираем продолжать идти рука об руку, даже если дорога не всегда ровная.
+Спасибо за тебя и твою любовь.
+Я люблю тебя! Каждый день я люблю тебя больше. Сегодня больше чем вчера, но меньше, чем завтра. 💜
     </p>
   </section>
 
   <section id="gallery">
-    <h2>📸 Наши воспоминания</h2>
+    <h2>📸 Для тебя</h2>
     <div class="gallery">
-      <img src="https://via.placeholder.com/200x250?text=Фото+1" alt="Фото 1">
-      <img src="https://via.placeholder.com/200x250?text=Фото+2" alt="Фото 2">
-      <img src="https://via.placeholder.com/200x250?text=Фото+3" alt="Фото 3">
+      <img src="https://raw.githubusercontent.com/CapV821/gift-card/main/images/photo1.jpg" alt="Фото 1" style="animation-delay:0.2s">
+      <img src="https://raw.githubusercontent.com/CapV821/gift-card/main/images/photo2.jpg" alt="Фото 2" style="animation-delay:0.4s">
     </div>
   </section>
 
@@ -170,8 +250,16 @@
       document.querySelectorAll("section").forEach(sec => {
         sec.classList.remove("active");
       });
-      document.getElementById(id).classList.add("active");
-      window.scrollTo({ top: document.getElementById(id).offsetTop - 20, behavior: 'smooth' });
+      const sec = document.getElementById(id);
+      sec.classList.add("active");
+      const items = sec.querySelectorAll('.music-list li, .gallery img');
+      items.forEach((item, index) => {
+        item.style.animationDelay = (index * 0.2) + 's';
+        item.style.opacity = 0;
+        item.offsetHeight; // trigger reflow
+        item.style.animationPlayState = 'running';
+      });
+      window.scrollTo({ top: sec.offsetTop - 20, behavior: 'smooth' });
     }
 
     function makeHearts() {
@@ -180,12 +268,13 @@
         heart.className = "heart";
         heart.style.left = Math.random() * window.innerWidth + "px";
         heart.style.top = "-30px";
+        heart.style.transform += " scale(" + (0.5 + Math.random()*0.5) + ")";
+        heart.style.animationDuration = (4 + Math.random()*2) + "s";
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
+        setTimeout(() => heart.remove(), 6000);
       }
     }
   </script>
 
 </body>
 </html>
-```
