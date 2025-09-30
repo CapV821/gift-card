@@ -71,9 +71,11 @@
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     transition: left 0.6s ease;
+    display: none;
   }
 
   section.active {
+    display: block;
     left: 0;
   }
 
@@ -122,6 +124,7 @@
     opacity: 0;
     transform: translateX(-20px);
     transition: opacity 0.5s ease, transform 0.5s ease;
+    font-style: italic;
   }
 
   .music-list li.show {
@@ -231,6 +234,7 @@ function showSection(id) {
   if (currentSection === next) {
     currentSection.classList.remove('active');
     resetElements(currentSection);
+    currentSection.style.display = "none";
     currentSection = null;
     return;
   }
@@ -298,6 +302,7 @@ function makeHearts() {
 
 </body>
 </html>
+
 
 
 
