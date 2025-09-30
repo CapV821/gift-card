@@ -64,23 +64,22 @@
   section {
     position: absolute;
     top: 0;
-    left: 100%;
+    left: 0;
     width: 100%;
     padding: 40px;
     background: white;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: left 0.6s ease;
-    display: none;
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   section.active {
-    display: block;
-    left: 0;
-  }
-
-  section.prev {
-    left: -100%;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   section h2 {
@@ -124,12 +123,17 @@
     opacity: 0;
     transform: translateX(-20px);
     transition: opacity 0.5s ease, transform 0.5s ease;
-    font-style: italic;
   }
 
   .music-list li.show {
     opacity: 1;
     transform: translateX(0);
+  }
+
+  .music-list li em {
+    font-style: italic;
+    font-weight: 500;
+    color: #6a1b9a;
   }
 
   audio { margin-top: 10px; width: 100%; }
@@ -178,19 +182,19 @@
   <section id="playlist">
     <h2>🌸 Эти песни напоминают мне о тебе</h2>
     <ul class="music-list">
-      <li>🎵 Lana Del Rey - Born to die  
+      <li>🎵 <em>Lana Del Rey - Born to die</em>  
         <audio controls>
-          <source src="https://raw.githubusercontent.com/CapV821/gift-card/main/music/Track1.mp3" type="audio/mpeg">
+          <source src="music/Track1.mp3" type="audio/mpeg">
         </audio>
       </li>
-      <li>🎵 The Neighbourhood - Cry Baby  
+      <li>🎵 <em>The Neighbourhood - Cry Baby</em>  
         <audio controls>
-          <source src="https://raw.githubusercontent.com/CapV821/gift-card/main/music/Track2.mp3" type="audio/mpeg">
+          <source src="music/Track2.mp3" type="audio/mpeg">
         </audio>
       </li>
-      <li>🎵 Cigarettes After Sex - Nothing's Gonna Hurt You Baby  
+      <li>🎵 <em>Cigarettes After Sex - Nothing's Gonna Hurt You Baby</em>  
         <audio controls>
-          <source src="https://raw.githubusercontent.com/CapV821/gift-card/main/music/Track3.mp3" type="audio/mpeg">
+          <source src="music/Track3.mp3" type="audio/mpeg">
         </audio>
       </li>
     </ul>
@@ -198,71 +202,40 @@
 
   <section id="letter">
     <h2>✉️ 03.10.25</h2>
-    <p>Сегодня на календаре третье октября — дата совершенно особенная для нас с тобой. 
-
-Четыре месяца. Ровно четыре месяца назад мы с тобой впервые заговорили и наши души совприкоснулись. Время летит, не правда ли? Это были четыре месяца, в которых было всё: радость, ожидание, небольшие испытания, непредвиденные штормы и очень значимые для нас обеих моменты. И среди всего этого есть главное — даже спустя столько времени мы выбираем оставаться рядом. Мы выбираем друг друга, несмотря на то, что бывает сложно, несмотря на сомнения, расстояние и страхи. И я верю, что всё это делает нас только сильнее.
-
-Я люблю тебя. Глубоко, тихо и вместе с тем ярко, подобно фейерверкам. Рядом с тобой всё обретает другой вкус: дни становятся теплее, слова — честнее, а мысли — смелее.
-
-Ты — мой уют, моя радость, моё место силы и вдохновения. Ты та, с кем хочется делиться каждой мелочью дня, смешными историями, страхами, мечтами и надеждами. Ты та, рядом с которой я могу быть собой — со своими слабостями, неловкими словами, нежностью, которую я раньше не смела показывать. И ты — та, ради которой я хочу становиться лучше.
-
-С каждым днём я яснее понимаю: моё сердце счастливо, что встретило твоё. И, может быть, это и есть самое главное — что мы есть друг у друга, что мы выбираем продолжать идти рука об руку, даже если дорога не всегда ровная.
-
-Спасибо за тебя и твою любовь.
-
-Я люблю тебя! Каждый день я люблю тебя больше. Сегодня больше чем вчера, но меньше, чем завтра.</p>
+    <p>...твое письмо здесь...</p>
   </section>
 
   <section id="gallery">
     <h2>📸 D4L</h2>
     <div class="gallery">
-      <img src="https://raw.githubusercontent.com/CapV821/gift-card/main/images/photo1.jpg" alt="Фото 1">
-      <img src="https://raw.githubusercontent.com/CapV821/gift-card/main/images/photo2.jpg" alt="Фото 2">
-      <img src="https://raw.githubusercontent.com/CapV821/gift-card/main/images/photo3.jpg" alt="Фото 3">
+      <img src="images/photo1.jpg" alt="Фото 1">
+      <img src="images/photo2.jpg" alt="Фото 2">
+      <img src="images/photo3.jpg" alt="Фото 3">
     </div>
   </section>
 </div>
 
 <script>
 let currentSection = null;
-let isTransitioning = false;
 
 function showSection(id) {
-  if (isTransitioning) return;
   const next = document.getElementById(id);
 
   if (currentSection === next) {
     currentSection.classList.remove('active');
     resetElements(currentSection);
-    currentSection.style.display = "none";
     currentSection = null;
     return;
   }
 
-  isTransitioning = true;
+  if (currentSection) {
+    currentSection.classList.remove('active');
+    resetElements(currentSection);
+  }
 
-  const allSections = Array.from(document.querySelectorAll('.sections section'));
-  const currentIndex = currentSection ? allSections.indexOf(currentSection) : -1;
-  const nextIndex = allSections.indexOf(next);
-  const direction = nextIndex > currentIndex ? 100 : -100;
-
-  next.style.left = direction + '%';
   next.classList.add('active');
-
-  setTimeout(() => {
-    if (currentSection) currentSection.style.left = (-direction) + '%';
-    next.style.left = '0';
-  }, 50);
-
-  setTimeout(() => {
-    if (currentSection) {
-      currentSection.classList.remove('active');
-      resetElements(currentSection);
-    }
-    animateElements(next);
-    currentSection = next;
-    isTransitioning = false;
-  }, 650);
+  animateElements(next);
+  currentSection = next;
 }
 
 function animateElements(section) {
@@ -302,6 +275,8 @@ function makeHearts() {
 
 </body>
 </html>
+
+
 
 
 
