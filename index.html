@@ -148,9 +148,9 @@
   <h1>Для тебя, Лукас 💜</h1>
   <p>Этот сайт — маленький подарок, чтобы сказать, как ты дорога мне.</p>
   <div class="buttons">
-    <button class="btn" onclick="toggleSection('playlist')">🌸 Плейлист</button>
-    <button class="btn" onclick="toggleSection('letter')">✉️ Послание</button>
-    <button class="btn" onclick="toggleSection('gallery')">📸 D4L</button>
+    <button class="btn" onclick="showSection('playlist')">🌸 Плейлист</button>
+    <button class="btn" onclick="showSection('letter')">✉️ Послание</button>
+    <button class="btn" onclick="showSection('gallery')">📸 D4L</button>
     <button class="btn" onclick="makeHearts()">💜 Тык</button>
   </div>
 </header>
@@ -207,14 +207,9 @@
 <script>
 let currentSection = null;
 
-function toggleSection(id) {
+function showSection(id) {
   const next = document.getElementById(id);
-
-  if (currentSection === next) {
-    currentSection.classList.remove('active');
-    currentSection = null;
-    return;
-  }
+  if (currentSection === next) return;
 
   const allSections = Array.from(document.querySelectorAll('.sections section'));
   const currentIndex = currentSection ? allSections.indexOf(currentSection) : -1;
