@@ -58,7 +58,7 @@
     position: relative;
     max-width: 800px;
     margin: 40px auto;
-    height: 600px;
+    min-height: 600px;
   }
 
   section {
@@ -98,6 +98,14 @@
     width: 200px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .gallery img.show {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .music-list {
@@ -111,6 +119,14 @@
     background: #f3f0fa;
     border-radius: 15px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .music-list li.show {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   audio { margin-top: 10px; width: 100%; }
@@ -206,10 +222,20 @@
 
 <script>
 let currentSection = null;
+let isTransitioning = false;
 
 function showSection(id) {
+  if (isTransitioning) return;
   const next = document.getElementById(id);
-  if (currentSection === next) return;
+
+  if (currentSection === next) {
+    currentSection.classList.remove('active');
+    resetElements(currentSection);
+    currentSection = null;
+    return;
+  }
+
+  isTransitioning = true;
 
   const allSections = Array.from(document.querySelectorAll('.sections section'));
   const currentIndex = currentSection ? allSections.indexOf(currentSection) : -1;
@@ -225,9 +251,35 @@ function showSection(id) {
   }, 50);
 
   setTimeout(() => {
-    if (currentSection) currentSection.classList.remove('active');
+    if (currentSection) {
+      currentSection.classList.remove('active');
+      resetElements(currentSection);
+    }
+    animateElements(next);
     currentSection = next;
+    isTransitioning = false;
   }, 650);
+}
+
+function animateElements(section) {
+  const musicItems = section.querySelectorAll('.music-list li');
+  musicItems.forEach((el, i) => {
+    el.classList.remove('show');
+    setTimeout(() => el.classList.add('show'), i * 150);
+  });
+
+  const galleryItems = section.querySelectorAll('.gallery img');
+  galleryItems.forEach((el, i) => {
+    el.classList.remove('show');
+    setTimeout(() => el.classList.add('show'), i * 150);
+  });
+}
+
+function resetElements(section) {
+  const musicItems = section.querySelectorAll('.music-list li');
+  musicItems.forEach(el => el.classList.remove('show'));
+  const galleryItems = section.querySelectorAll('.gallery img');
+  galleryItems.forEach(el => el.classList.remove('show'));
 }
 
 function makeHearts() {
